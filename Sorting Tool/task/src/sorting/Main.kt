@@ -1,18 +1,26 @@
 package sorting
 
-import jdk.jfr.Percentage
 import java.util.Scanner
 import kotlin.system.exitProcess
 
 val scanner  = Scanner(System.`in`)
 
 fun main(args: Array<String>) {
-    val dataType = when {
-        args.size == 2 && args[0] == "-dataType" && args[1] == "long" -> long()
-        args.size == 2 && args[0] == "-dataType" && args[1] == "line" -> line()
-        args.size == 2 && args[0] == "-dataType" && args[1] == "word" -> word()
+    if (args.size == 1 && !args.contains("-sortIntegers")) word()
+    when {
+        args.contains("-sortIntegers") -> sort()
+        args[0] == "-dataType" && args[1] == "long" -> long()
+        args[0] == "-dataType" && args[1] == "line" -> line()
+        args[0] == "-dataType" && args[1] == "word" -> word()
         else -> word()
     }
+}
+fun sort() {
+    val numbers = mutableListOf<Int>()
+    while (scanner.hasNext()) numbers.add(scanner.nextInt())
+    val sortedNumbers = numbers.sorted().joinToString(" ")
+    println("Total numbers: ${numbers.size}.")
+    println("Sorted data: $sortedNumbers")
 }
 fun long() {
     val numbers = mutableListOf<Int>()
